@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<!--application/views/admin/berita/index.html-->
+
+<script type="text/javascript" src="<?php echo URL;?>application/libs/tiny_mce/tiny_mce.js"></script>
+		<script type="text/javascript">
+			tinyMCE.init({
+			mode : "textareas",
+			theme : "advanced",
+			plugins : "template,wordcount,advlist,autosave",
+
+		// Theme options
+		theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect,|,html",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,forecolor,backcolor",
+		
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		//theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
+
+
+		// Style formats
+		style_formats : [
+			{title : 'Bold text', inline : 'b'},
+			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+			{title : 'Example 1', inline : 'span', classes : 'example1'},
+			{title : 'Example 2', inline : 'span', classes : 'example2'},
+			{title : 'Table styles'},
+			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+		],
+
+		// Replace values for the template plugin
+		template_replace_values : {
+			username : "Some User",
+			staffid : "991234"
+		}
+	});
+		</script>
+
+<div id="page-wrapper">
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <!--Content-->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Data Reservasi <small></small>
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> <a href="<?php echo URL?>admin/all">Dashboard</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-dashboard"></i> <a href="<?php echo URL?>admin/reservasi">Reservasi</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-dashboard"></i> Input Reservasi
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                
+               <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Input Reservasi</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" role="form" action="<?php echo URL?>admin/insertreservasi" method="post">
+                            <div class="form-group">
+                            <label for="nama" class="col-sm-2 control-label">Tujuan</label>
+                            <div class="col-sm-5">
+                            <textarea class="form-control" id="tujuan" placeholder="Tujuan" name="tujuan" cols="5" rows="3"><?php if(!empty($form['tujuan'])) echo $form['tujuan'] ?></textarea>   
+                            </div>
+                            </div>
+                             
+                            <div class="form-group">
+                            <label for="paket" class="col-sm-2 control-label">Include Paket </label>
+                            <div class="col-sm-3">
+                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="5" rows="3"><?php if(!empty($form['paket'])) echo $form['paket'] ?></textarea>   
+                            </div>
+                            </div>    
+                                                         
+                            <div class="form-group">
+                            <label for="harga" class="col-sm-2 control-label">Harga </label>
+                            <div class="col-sm-3">
+                            <div class="input-group">
+                            <div class="input-group-addon">Rp</div>
+                            <input class="form-control" type="text" placeholder="Harga" id="harga" name="harga">
+                            </div>
+                            </div>
+                            </div>
+                           
+                          
+                                
+                            <div class="form-group">
+                            <label for="gambar" class="col-sm-2 control-label">Gambar </label>
+                            <div class="col-sm-4">
+                                <input type="file" id="gambar" name="gambar">
+                            <p class="help-block">Pilih Gambar *.jpeg</p>
+                            </div>
+                            </div>
+                            
+                                
+                            <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Simpan</button>
+                            </div>
+                            </div>
+                                                             
+                          </form>
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                 <script src="<?php echo URL;?>public/sb-admin/js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?php echo URL;?>public/sb-admin/js/bootstrap.min.js"></script>
