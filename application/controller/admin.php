@@ -91,7 +91,7 @@ class admin extends Controller {
             
             //simpan ke database
             $model  = $this->loadModel($this->modelreservasi);
-            $simpan = $model->insertreservasi($tanggal,$tujuan,$harga,$paket,$move_gambar);
+            $simpan = $model->insertreservasi($tanggal,$tujuan,$harga,$paket,basename($newfile));
             $this->redirect('admin/dataresevasi');
             
             }
