@@ -32,6 +32,15 @@ class reservasimodels extends Models {
         
     }
     
+    public function searchreservasi($id){
+        $sql    = "SELECT * from {$this->table} WHERE id_reservasi='{$id}'";
+        $query  = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetch();  
+    }
+
+
+    
     public function deletereservasi($id){
         $sql     = "DELETE FROM {$this->table} ";
         $sql    .= " WHERE id_reservasi = {$id}";

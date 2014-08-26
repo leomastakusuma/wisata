@@ -20,8 +20,10 @@ class admin extends Controller {
         require 'application/templates/admin/header.html';
 //        require 'application/templates/admin/contents.html';
         require 'application/templates/admin/content.html';
+         echo 'a';
+        require 'application/templates/admin/footer.html';
 
-        echo 'a';
+       
         
     }
     public function all(){
@@ -90,6 +92,7 @@ class admin extends Controller {
             //simpan ke database
             $model  = $this->loadModel($this->modelreservasi);
             $simpan = $model->insertreservasi($tanggal,$tujuan,$harga,$paket,$move_gambar);
+            $this->redirect('admin/dataresevasi');
             
             }
 
@@ -97,18 +100,33 @@ class admin extends Controller {
                
     }
     
-    public function datareservasi(){
+    
+    public function editreservasi($idreservasi){
+        if(isset($idreservasi)){
+            echo $idreservasi;
+            $model  = $this->loadModel($this->modelreservasi);
+            $getall = $model->searchreservasi($idreservasi);
+            
+        }
+        
+    }
+
+
+    //get all reservasi
+    public function datareservasi(){ 
         $modelreservasi = $this->loadModel($this->modelreservasi);
         $getall         = $modelreservasi->getall();
         require 'application/templates/admin/header.html';
         require 'application/views/admin/reservasi/datareservasi.html';
         require 'application/templates/admin/footer.html';
     }
-    public function deletereservasi($id_reservasi){
+    //delete reservasi
+    public function deletereservasi($id_reservasi){ 
         if(isset($id_reservasi)){
             $modelreservasi = $this->loadModel($this->modelreservasi);
             $hapus          = $modelreservasi->deletereservasi($id_reservasi);
             $this->redirect('admin/datareservasi');
+                    
         }
     }
     

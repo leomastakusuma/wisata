@@ -149,17 +149,39 @@
               
                 <ul class="nav navbar-nav side-nav">
                     
-                    <li class="active">
-                        <!--<a href="<?php echo URL?>admin/all"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>-->
+                    <?php $url = $_GET?>
+                    <?php echo strlen($_GET['url'])?>
+                    <?php foreach ($url as $value):?>
+                    <?php $active1 = '<li>'?>
+                    <?php if($value == 'admin'):?>
+                    <?php $active1 = "<li class='active'>"?>
+                    <?php endif;?>
+                    
+                    <?php $active2 = '<li>'?>
+                    <?php if($value == 'admin/berita'):?>
+                    <?php $active2 = "<li class='active'>"?>
+                    <?php endif;?>
+                    
+                    <?php $active3 = '<li>'?>
+                    <?php $kata = substr($value,20);?>
+                    <?php if(($value == 'admin/reservasi') || ($value == 'admin/editreservasi/'.$kata) || ($value == 'admin/datareservasi')) :?>
+                    <?php $active3 = "<li class='active'>"?>
+                    <?php endif;?>
+                    
+                    <?php endforeach?>
+                    
+                    
+                    
+                   <?php echo $active1 ;?>                   
                         <a href="<?php echo URL?>admin"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    
-                    <li>
-                        <a href="<?php echo URL?>admin/all"><i class="fa fa-fw fa-university"></i> Berita</a>
+                   
+                    <?php echo $active2 ;?>
+                        <a href="<?php echo URL?>admin/berita"><i class="fa fa-fw fa-university"></i> Berita</a>
                     </li>
                     
-                    
-                    <li>
+                                          
+                    <?php echo $active3 ;?>
                        <a href="javascript:;" data-toggle="collapse" data-target="#reservasi"><i class="fa fa-fw fa-gears"></i> Data Reservasi</a>
                         <ul id="reservasi" class="collapse">
                         <li>
@@ -170,6 +192,9 @@
                         </li>
                         </ul>
                     </li>
+                    
+                    
+                    
                     <li>
                         <a href="<?php echo URL?>admin/table"><i class="fa fa-fw fa-table"></i> Tables</a>
                     </li>
@@ -186,8 +211,15 @@
                             </li>
                         </ul>
                     </li>
+                    
                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+        
+  <div id="page-wrapper">
+
+            <div class="container-fluid">      
+                
+                <!--ISI CONTENT DISINI-->
