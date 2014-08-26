@@ -103,9 +103,14 @@ class admin extends Controller {
     
     public function editreservasi($idreservasi){
         if(isset($idreservasi)){
-            echo $idreservasi;
+//            echo $idreservasi;
             $model  = $this->loadModel($this->modelreservasi);
             $getall = $model->searchreservasi($idreservasi);
+           
+           
+            require 'application/templates/admin/header.html';
+            require view.'admin/reservasi/editreservasi.html';
+           
             
         }
         

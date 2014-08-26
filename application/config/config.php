@@ -19,6 +19,7 @@ ini_set("display_errors", 1);
  * Put your URL here, for local development "127.0.0.1" or "localhost" (plus sub-folder) is fine
  */
 define('URL', 'http://localhost/Wisata/');
+define('view', 'application/views/');
 
 /**
  * Configuration for: Database

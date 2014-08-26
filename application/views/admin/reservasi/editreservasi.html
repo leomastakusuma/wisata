@@ -31,7 +31,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Input Reservasi</h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Edit Reservasi</h3>
                             </div>
                             <div class="panel-body">
 
@@ -46,20 +46,23 @@
                            <br>
 
 
-
+                           <?php if (!empty($getall))
+                                   {
+                                    ?>
+                                   
 
                                 <form class="form-horizontal" role="form" action="<?php echo URL?>admin/insertreservasi" method="post" enctype="multipart/form-data" >
                             <div class="form-group">
                             <label for="nama" class="col-sm-2 control-label">Tujuan</label>
                             <div class="col-sm-3">
-                            <textarea class="form-control" id="tujuan" placeholder="Tujuan" name="tujuan" cols="5" rows="2"><?php if(!empty($form['tujuan'])) echo $form['tujuan'] ?></textarea>   
+                            <textarea class="form-control" id="tujuan" placeholder="Tujuan" name="tujuan" cols="5" rows="2"><?php echo $getall->tujuan ?></textarea>   
                             </div>
                             </div>
                              
                             <div class="form-group">
                             <label for="paket" class="col-sm-2 control-label">Include Paket </label>
                             <div class="col-sm-5">
-                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="5" rows="3"><?php if(!empty($form['paket'])) echo $form['paket'] ?></textarea>   
+                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="5" rows="3"><?php echo $getall->include_paket ?></textarea>   
                             </div>
                             </div>    
                                                          
@@ -68,7 +71,7 @@
                             <div class="col-sm-3">
                             <div class="input-group">
                             <div class="input-group-addon">Rp</div>
-                            <input class="form-control" type="text" placeholder="Harga"  onkeypress="return isNumberKey(event)" id="harga" name="harga" value="<?php if(isset($form['harga'])) echo $form['harga']?>">
+                            <input class="form-control" type="text" placeholder="Harga"  onkeypress="return isNumberKey(event)" id="harga" name="harga" value="<?php echo $getall->harga?>">
                             </div>
                             </div>
                             </div>
@@ -92,13 +95,15 @@
                                                              
                           </form>
                                 
-                                
+                           <?php }?> 
+                           
+                           
                                 
                             </div>
                         </div>
                     </div>
                 </div>
-                
+                     
                  <script src="<?php echo URL;?>public/sb-admin/js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->

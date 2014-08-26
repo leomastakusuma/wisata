@@ -25,10 +25,40 @@ class Application
     {
         // create array with URL parts in $url
         $this->splitUrl();
-
-        // check for controller: does such a controller exist ?
-        if (file_exists('./application/controller/' . $this->url_controller . '.php')) {
-
+//        if(is_dir('./application/controller/' . $this->url_controller )){
+//            if(file_exists('./application/controller/' . $this->url_controller . '/' . $this->url_controller . '.php')) {
+//                // check for controller: does such a controller exist ?
+//                // if so, then load this file and create this controller
+//                // example: if controller would be "car", then this line would translate into: $this->car = new car();
+//                require './application/controller/' . $this->url_controller . '/' . $this->url_controller . '.php';
+//                $this->url_controller = new $this->url_controller();
+//
+//                // check for method: does such a method exist in the controller ?
+//                if (method_exists($this->url_controller, $this->url_action)) {
+//
+//                    // call the method and pass the arguments to it
+//                    if (isset($this->url_parameter_3)) {
+//                        // will translate to something like $this->home->method($param_1, $param_2, $param_3);
+//                        $this->url_controller->{$this->url_action}($this->url_parameter_1, $this->url_parameter_2, $this->url_parameter_3);
+//                    } elseif (isset($this->url_parameter_2)) {
+//                        // will translate to something like $this->home->method($param_1, $param_2);
+//                        $this->url_controller->{$this->url_action}($this->url_parameter_1, $this->url_parameter_2);
+//                    } elseif (isset($this->url_parameter_1)) {
+//                        // will translate to something like $this->home->method($param_1);
+//                        $this->url_controller->{$this->url_action}($this->url_parameter_1);
+//                    } else {
+//                        // if no parameters given, just call the method without parameters, like $this->home->method();
+//                        $this->url_controller->{$this->url_action}();
+//                    }
+//                } else {
+//                    // default/fallback: call the index() method of a selected controller
+//                    $this->url_controller->index();
+//                }
+//            }
+//            
+//        } else
+         if(file_exists('./application/controller/' . $this->url_controller . '.php')) {
+            // check for controller: does such a controller exist ?
             // if so, then load this file and create this controller
             // example: if controller would be "car", then this line would translate into: $this->car = new car();
             require './application/controller/' . $this->url_controller . '.php';
