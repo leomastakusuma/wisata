@@ -115,9 +115,69 @@ class admin extends Controller {
         }
         
     }
+    public function saveeditreservasi(){
+        
+        $form               = $_POST;
+        $id                 = $form['id'];
+        $tanggal            = date('Y-m-d');
+        $tujuan             = $form['tujuan'];
+        $paket              = $form['paket'];
+        $harga              = $form['harga'];
+        $images             = $_FILES['file_gambar']['name'];
+        $path               = getcwd(); //path on  root directory web
+        $dir                = $path.'/public/images/';
+       
+        
+        if(!empty($form)){
+                //validasi
+                
+                    $extfile=strtolower(substr($_FILES["file_gambar"]["name"],-3));
+                    $error = array();          
+                    if(!validname($tujuan)){
+                        $error[] = 'Format Tujuan Salah, Tidak dizinkan format Alphanumeric,Hanya [A-Z,a-z]';
+                    }
 
+                    if(empty($paket)){
+                        $error[] = 'Paket Tidak Boleh Kosong';
+                    }
+                    if(empty($harga)){
+                        $error[] = 'Harga Tidak Boleh Kosong';
+                    }
 
-    //get all reservasi
+                    if(!empty($images)){
+                        if($extfile != "jpg"){
+                        $error[]= 'Format Gambar Salahs, Hanya ekstensi *.jpg yang diizinkan';
+
+                        } 
+                    
+                    }
+                    //mengihitung keadaan error
+                    if(count($error)>0){
+                        $msg = $error;
+                        $model  = $this->loadModel($this->modelreservasi);
+                        $gambar = $model->searchreservasi($id);
+                        require 'application/templates/admin/header.html';
+                        require 'application/views/admin/reservasi/editreservasi.html';
+                        require 'application/templates/admin/footer.html';
+                    }
+                    //jika tidak ada error.
+                    else{
+                        $modelreservasi = $this->loadModel($this->modelreservasi);
+                        $simpan         = $modelreservasi->updatereservasiall($tanggal,$tujuan,$paket,$harga,$images,$id);
+                    }
+                
+                
+                                   
+                }
+           
+           
+    }
+        
+    public function tes(){
+        print_r($_POST);
+    }    
+  
+        //get all reservasi
     public function datareservasi(){ 
         $modelreservasi = $this->loadModel($this->modelreservasi);
         $getall         = $modelreservasi->getall();
