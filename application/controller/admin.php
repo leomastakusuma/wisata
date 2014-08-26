@@ -14,6 +14,7 @@
 require 'application/templates/admin/view.php';
 class admin extends Controller {
     //put your code here
+    private  $modelreservasi = 'reservasimodels';
     public function index(){
 //        require 'application/templates/admin/index.html';
         require 'application/templates/admin/header.html';
@@ -66,7 +67,7 @@ class admin extends Controller {
             if(empty($paket)){
                 $error[] = 'Paket Tidak Boleh Kosong';
             }
-            if(empty($haga)){
+            if(empty($harga)){
                 $error[] = 'Harga Tidak Boleh Kosong';
             }
 
@@ -85,10 +86,30 @@ class admin extends Controller {
             else {
             $move_gambar        = $dir.basename($newfile);
             move_uploaded_file($_FILES['file_gambar']['tmp_name'],$move_gambar);
+            
+            //simpan ke database
+            $model  = $this->loadModel($this->modelreservasi);
+            $simpan = $model->insertreservasi($tanggal,$tujuan,$harga,$paket,$move_gambar);
+            
             }
 
         }
                
+    }
+    
+    public function datareservasi(){
+        $modelreservasi = $this->loadModel($this->modelreservasi);
+        $getall         = $modelreservasi->getall();
+        require 'application/templates/admin/header.html';
+        require 'application/views/admin/reservasi/datareservasi.html';
+        require 'application/templates/admin/footer.html';
+    }
+    public function deletereservasi($id_reservasi){
+        if(isset($id_reservasi)){
+            $modelreservasi = $this->loadModel($this->modelreservasi);
+            $hapus          = $modelreservasi->deletereservasi($id_reservasi);
+            $this->redirect('admin/datareservasi');
+        }
     }
     
 }

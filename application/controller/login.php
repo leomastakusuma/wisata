@@ -8,8 +8,8 @@ class login extends Controller {
     
     public function cari(){
         $id = '1';
-        $cari = $this->loadModel('user');
-        $getuser = $cari->search($id);
+        $cari = $this->loadModel('usermodels');
+        $getuser = $cari->searchuser($id);
         foreach ($getuser as $row)
         {
             print_r($row).'<br>';

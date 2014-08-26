@@ -19,15 +19,15 @@ class usermodels extends Models{
     }
      
  
-//    public function search($id ){
-//        $sql    = "SELECT * from user WHERE id='{$id}'";
-//        $query  = $this->db->prepare($sql);
-//        
-//        $query->execute();
-// 
-//        return $query->fetchAll();  
-//    
-//    }
+    public function searchuser($id ){
+        $sql    = "SELECT * from user WHERE id_user='{$id}'";
+        $query  = $this->db->prepare($sql);
+        
+        $query->execute();
+ 
+        return $query->fetchAll();  
+    
+    }
     
     public function delUser($id){
         $sql    = "DELETE FROM user WHERE id ='{$id}'";

@@ -12,7 +12,7 @@ Options -Indexes
 # If your app is in the root of your web folder, then leave it commented out
 #RewriteBase /php-mvc/
 
-RewriteBase /Wisata
+#RewriteBase /Wisata
 
 # General rewrite rules
 RewriteCond %{REQUEST_FILENAME} !-d
