@@ -126,7 +126,8 @@ class admin extends Controller {
         $images             = $_FILES['file_gambar']['name'];
         $path               = getcwd(); //path on  root directory web
         $dir                = $path.'/public/images/';
-       
+        // echo $harga;
+        // die;
         
         if(!empty($form)){
                 //validasi

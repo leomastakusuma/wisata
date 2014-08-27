@@ -41,23 +41,11 @@ class reservasimodels extends Models {
     }
 
     public function updatereservasiall($tgl,$tujuan,$paket,$harga,$gambar,$id){
-        $data  = array(':tgl'       =>$tgl,
-                       ':tujuan'    =>$tujuan,
-                       ':harga'     =>$harga,
-                       ':paket'     =>$paket,
-                       ':gambar'    =>$gambar
-                      );
-        
-        $sql   = "UPDATE {$this->table}";
-        $sql  .= " SET tgl_reservasi = :tgl, tujuan = :tujuan, harga = :harga, include_paket = :paket, image = :image)";
-        $sql  .= " WHERE id_reservasi = {$id} ";
-        $query = $this->db->prepare($sql);
-//        echo '<pre>';
-//        print_r($data);die;
-        
-        $query->execute($data);
-//        print_r($query);
-                
+        // echo $tgl .'<br>'.$tujuan .'<br>'.$paket.'<br>'. $harga .'<br>'. $gambar.'<br>' . $id;die ;
+        $sql    = "UPDATE {$this->table} SET tgl_reservasi = ? , tujuan = ? , harga = ? ,include_paket = ? , image = ? WHERE id_reservasi = ?";
+        $query  = $this->db->prepare($sql);
+        $query->execute(array($tgl , $tujuan , $harga , $paket ,$gambar , $id));
+                     
     }
 
     
