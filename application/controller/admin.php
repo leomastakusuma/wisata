@@ -20,7 +20,7 @@ class admin extends Controller {
         require 'application/templates/admin/header.html';
 //        require 'application/templates/admin/contents.html';
         require 'application/templates/admin/content.html';
-         echo 'a';
+         echo 'a - a -a';
         require 'application/templates/admin/footer.html';
 
        
@@ -92,7 +92,7 @@ class admin extends Controller {
             //simpan ke database
             $model  = $this->loadModel($this->modelreservasi);
             $simpan = $model->insertreservasi($tanggal,$tujuan,$harga,$paket,basename($newfile));
-            $this->redirect('admin/dataresevasi');
+            $this->redirect('admin/datareservasi');
             
             }
 
@@ -100,23 +100,19 @@ class admin extends Controller {
                
     }
     
-    
+    //ambil data ketika edit reservasi
     public function editreservasi($idreservasi){
         if(isset($idreservasi)){
-//            echo $idreservasi;
             $model  = $this->loadModel($this->modelreservasi);
             $getall = $model->searchreservasi($idreservasi);
-           
-           
             require 'application/templates/admin/header.html';
-            require view.'admin/reservasi/editreservasi.html';
-           
-            
+            require view.'admin/reservasi/editreservasi.html';     
         }
         
     }
+
+    //menyimpan edit reservasi
     public function saveeditreservasi(){
-        
         $form               = $_POST;
         $id                 = $form['id'];
         $tanggal            = date('Y-m-d');
@@ -124,10 +120,10 @@ class admin extends Controller {
         $paket              = $form['paket'];
         $harga              = $form['harga'];
         $images             = $_FILES['file_gambar']['name'];
+        $random             = rand(0000,9999); //function random 
+        $newfile            = $random.$images;  // implement change name
         $path               = getcwd(); //path on  root directory web
         $dir                = $path.'/public/images/';
-        // echo $harga;
-        // die;
         
         if(!empty($form)){
                 //validasi
@@ -154,7 +150,7 @@ class admin extends Controller {
                     }
                     //mengihitung keadaan error
                     if(count($error)>0){
-                        $msg = $error;
+                        $msg    = $error;
                         $model  = $this->loadModel($this->modelreservasi);
                         $gambar = $model->searchreservasi($id);
                         require 'application/templates/admin/header.html';
@@ -163,8 +159,29 @@ class admin extends Controller {
                     }
                     //jika tidak ada error.
                     else{
-                        $modelreservasi = $this->loadModel($this->modelreservasi);
-                        $simpan         = $modelreservasi->updatereservasiall($tanggal,$tujuan,$paket,$harga,$images,$id);
+                        $modelreservasi  = $this->loadModel($this->modelreservasi);
+                        $gambar = $modelreservasi->searchreservasi($id);
+
+                        //cek gambar kosong atau tidak
+                        if(!empty($images))
+                        {
+                            if(file_exists($dir.$gambar->image)){
+                              unlink($dir.$gambar->image);  
+                            }
+                            $move_gambar        = $dir.basename($newfile);
+                            move_uploaded_file($_FILES['file_gambar']['tmp_name'],$move_gambar);
+                            $simpan         = $modelreservasi->updatereservasiall($tanggal,$tujuan,$paket,$harga,$newfile,$id);
+                            $this->redirect('admin/datareservasi');
+
+                        }
+
+                        else{
+
+                            $simpan         = $modelreservasi->updatereservasi($tanggal, $tujuan , $paket , $harga , $id);
+                            $this->redirect('admin/datareservasi');
+                        }
+                        
+                       
                     }
                 
                 
@@ -174,11 +191,7 @@ class admin extends Controller {
            
     }
         
-    public function tes(){
-        print_r($_POST);
-    }    
-  
-        //get all reservasi
+    //get all reservasi
     public function datareservasi(){ 
         $modelreservasi = $this->loadModel($this->modelreservasi);
         $getall         = $modelreservasi->getall();

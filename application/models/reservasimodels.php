@@ -40,6 +40,7 @@ class reservasimodels extends Models {
         return $query->fetch();  
     }
 
+    //update dengan gambar
     public function updatereservasiall($tgl,$tujuan,$paket,$harga,$gambar,$id){
         // echo $tgl .'<br>'.$tujuan .'<br>'.$paket.'<br>'. $harga .'<br>'. $gambar.'<br>' . $id;die ;
         $sql    = "UPDATE {$this->table} SET tgl_reservasi = ? , tujuan = ? , harga = ? ,include_paket = ? , image = ? WHERE id_reservasi = ?";
@@ -48,6 +49,13 @@ class reservasimodels extends Models {
                      
     }
 
+    //update tampa gambar
+    public function updatereservasi($tgl,$tujuan,$paket,$harga,$id)
+    {
+       $sql     = "UPDATE {$this->table} SET tgl_reservasi = ? , tujuan = ? , harga = ? ,include_paket = ?  WHERE id_reservasi = ?";
+       $query   = $this->db->prepare($sql);
+       $query->execute(array($tgl, $tujuan ,  $harga ,$paket ,$id));
+    }
     
     public function deletereservasi($id){
         $sql     = "DELETE FROM {$this->table} ";
