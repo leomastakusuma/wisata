@@ -11,7 +11,7 @@
  *
  * @author leomasta
  */
-require 'application/templates/admin/view.php';
+//require 'application/templates/admin/view.php';
 class admin extends Controller {
     //put your code here
     private  $modelreservasi = 'reservasimodels';
@@ -20,7 +20,6 @@ class admin extends Controller {
         require 'application/templates/admin/header.html';
 //        require 'application/templates/admin/contents.html';
         require 'application/templates/admin/content.html';
-         echo 'a - a -a';
         require 'application/templates/admin/footer.html';
 
        
@@ -74,7 +73,7 @@ class admin extends Controller {
             }
 
 
-            if($extfile != "jpg"){
+            if(($extfile != "jpg") || ($extfile != "png")){
                 $error[]= 'Format Gambar Salah, Hanya ekstensi *.jpg yang diizinkan';
                
             }
@@ -142,7 +141,7 @@ class admin extends Controller {
                     }
 
                     if(!empty($images)){
-                        if($extfile != "jpg"){
+                        if(($extfile != "jpg")){
                         $error[]= 'Format Gambar Salahs, Hanya ekstensi *.jpg yang diizinkan';
 
                         } 
@@ -208,5 +207,58 @@ class admin extends Controller {
                     
         }
     }
+
+    public function berita(){
+        require 'application/templates/admin/header.html';
+        require 'application/views/admin/berita/index.html';
+        require 'application/templates/admin/footer.html';
+        
+    }
+    public function insertberita(){
+        $form               = $_POST;
+        echo "<pre>";
+        print_r($form);
+        $tanggal            = date('Y-m-d');
+        $judul              = $form['judul'];
+        $isi                = $form['isiberita'];
+        $images             = $_FILES['file_gambar']['name'];
+        $random             = rand(0000,9999); //function random 
+        $newfile            = $random.$images;  // implement change name
+        $path               = getcwd(); //path on  root directory web
+        $dir                = $path.'/public/images/'; 
+
+        $error = array();
+        $extfile=strtolower(substr($_FILES["file_gambar"]["name"],-3));
+        if(empty($judul)){
+            $error[] = 'Judul Tidak Boleh Kosong !'; 
+        }      
+        if(empty($isi)){
+            $error[] = 'Isi Tidak Boleh Kosong';
+        }
+
+        if(!empty($images)){
+            if($extfile != 'jpg'){
+                $error = 'Format Gambar Hanya *.Jpg yang di izinkan';
+            }
+        }
+
+
+
+        if(count($error) > 0){
+            echo "<pre>";
+            print_r($error);
+        }
+        else{
+            echo '\n succes \n';
+        }
+    }
+    
+    
     
 }
+
+
+
+
+
+      

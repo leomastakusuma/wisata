@@ -7,6 +7,7 @@
  */
 
 class reservasimodels extends Models {
+  
     private $table = 'reservasi';
     
     public function getall(){

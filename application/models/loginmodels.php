@@ -11,11 +11,11 @@ class loginmodels extends Models{
     
     public function loginaction($username,$password){
         $level  = 'user';
-        $sql    = "select * from {$this->_table} Where user = :username and pass = :password and level = :level ";
+        $sql    = "select * from {$this->_table} Where user = :username and pass = :password ";
         $query  = $this->db->prepare($sql);
         $data   = array(':username' => $username,
-                        ':password' => $password,
-                        ':level'    => $level);
+                        ':password' => $password
+                       );
                         
         $query->execute($data);
         return $query->fetchAll();

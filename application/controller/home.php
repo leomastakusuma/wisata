@@ -2,10 +2,12 @@
 
 class Home extends Controller{
 	public function index(){
+//                 echo $_SESSION;
 		 require_once 'application/templates/header.html';
 		 require_once 'application/templates/menu.html';
 		 require_once 'application/templates/content.php';
 		 require_once 'application/templates/footer.php';
+                 
 	// die;
 
 	}

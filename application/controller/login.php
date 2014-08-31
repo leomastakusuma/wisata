@@ -64,10 +64,20 @@ class login extends Controller {
             else {
                 $login   = $this->loadModel('loginmodels');
                 $prosess = $login->loginaction($username,$password);
+                foreach($prosess as $row){
+                    $level= $row->level;
+                }
                 if(count($prosess)>0){
-                    $form['create']=  date('Y-d-m');
-                    $_SESSION = $username.'-'.$form['create'];
-                    $this->redirect('home/news');
+                      if($level== 'admin'){
+                      $form['create']=  date('Y-d-m');
+                      $session  = $username;
+                      $_SESSION = $username.'-'.$form['create'];
+                      $this->redirect('admin');
+                      }
+                      if($level== 'user'){
+                      $form['create']=  date('Y-d-m');
+                      $_SESSION = $username.'-'.$form['create'];
+                      $this->redirect('home/news');}
                 }
                 else{
                    echo "<script>alert('username dan password salah !!')</script>";

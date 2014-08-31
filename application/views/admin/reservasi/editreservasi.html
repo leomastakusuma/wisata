@@ -4,6 +4,13 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
+
+<script type="text/javascript" src="<?php echo URL;?>public/js/nicEdit-latest.js"></script>
+<script type="text/javascript">
+       bkLib.onDomLoaded(function() { nicEditors.allTextAreas() });
+</script>
+
+
 <div id="page-wrapper">
             <div class="container-fluid">
                 <!-- Page Heading -->
@@ -18,10 +25,10 @@
                                 <i class="fa fa-dashboard"></i> <a href="<?php echo URL?>admin/all">Dashboard</a>
                             </li>
                             <li>
-                                <i class="fa fa-dashboard"></i> <a href="<?php echo URL?>admin/datareservasi">Data Reservasi</a>
+                                <i class="fa fa-dashboard"></i> <a href="<?php echo URL?>admin/datareservasi" class="active"> Data Reservasi</a>
                             </li>
                             <li>
-                                <i class="fa fa-dashboard"></i> Input Reservasi
+                                <i class="fa fa-dashboard"></i> <a href="<?php echo URL?>admin/reservasi"> Input Reservasi</a>
                             </li>
                         </ol>
                     </div>
@@ -55,15 +62,15 @@
                             <input type="hidden" name ='id' value='<?php echo $getall->id_reservasi?>'>
                             <div class="form-group">
                             <label for="nama" class="col-sm-2 control-label">Tujuan</label>
-                            <div class="col-sm-3">
-                            <textarea class="form-control" id="tujuan" placeholder="Tujuan" name="tujuan" cols="5" rows="2"><?php echo $getall->tujuan ?></textarea>   
+                            <div class="col-sm-7">
+                            <input class="form-control" type="text" name="tujuan" id="tujuan" placeholder="Tujuan" value="<?php echo $getall->tujuan ?>">
                             </div>
                             </div>
                              
                             <div class="form-group">
                             <label for="paket" class="col-sm-2 control-label">Include Paket </label>
-                            <div class="col-sm-5">
-                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="5" rows="3"><?php echo $getall->include_paket ?></textarea>   
+                            <div class="col-sm-10">
+                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="2" rows="15"><?php echo $getall->include_paket ?></textarea>   
                             </div>
                             </div>    
                                                          
@@ -105,15 +112,16 @@
                             <div class="form-group">
                             <input type="hidden" name ='id' value="<?php echo $form['id']?>">
                             <label for="nama" class="col-sm-2 control-label">Tujuan</label>
-                            <div class="col-sm-3">
-                            <textarea class="form-control" id="tujuan" placeholder="Tujuan" name="tujuan" cols="5" rows="2"><?php if(!empty($form['tujuan'])) echo $form['tujuan'] ?></textarea>   
+                            <div class="col-sm-7">
+                            <input class="form-control" type="text" name="tujuan" id="tujuan" placeholder="Tujuan" value="<?php if(!empty($form['tujuan'])) echo $form['tujuan']?>">
+
                             </div>
                             </div>
                              
                             <div class="form-group">
                             <label for="paket" class="col-sm-2 control-label">Include Paket </label>
-                            <div class="col-sm-5">
-                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="5" rows="3"><?php if(!empty($form['paket'])) echo $form['paket'] ?></textarea>   
+                            <div class="col-sm-9">
+                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="5" rows="15"><?php if(!empty($form['paket'])) echo $form['paket'] ?></textarea>   
                             </div>
                             </div>    
                                                          
