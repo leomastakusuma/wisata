@@ -4,9 +4,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-
-/**
+ *//**
  * Description of admin
  *
  * @author leomasta
@@ -15,6 +13,11 @@
 class admin extends Controller {
     //put your code here
     private  $modelreservasi = 'reservasimodels';
+    private  $modelberita    = 'beritamodels';
+    
+    
+    
+
     public function index(){
 //        require 'application/templates/admin/index.html';
         require 'application/templates/admin/header.html';
@@ -24,8 +27,9 @@ class admin extends Controller {
 
        
         
-    }
-    public function all(){
+    }    
+    
+   public function all(){
         require 'application/templates/admin/header.html';
         require 'application/templates/admin/contentsfull.html';         
     }
@@ -46,7 +50,9 @@ class admin extends Controller {
         $tujuan             = $form['tujuan'];
         $paket              = $form['paket'];
         $harga              = $form['harga'];
-        $images             = $_FILES['file_gambar']['name'];
+        $images             = $_FILES[
+
+'file_gambar']['name'];
         $random             = rand(0000,9999); //function random 
         $newfile            = $random.$images;  // implement change name
         $path               = getcwd(); //path on  root directory web
@@ -207,7 +213,6 @@ class admin extends Controller {
                     
         }
     }
-
     public function berita(){
         require 'application/templates/admin/header.html';
         require 'application/views/admin/berita/index.html';
@@ -216,8 +221,6 @@ class admin extends Controller {
     }
     public function insertberita(){
         $form               = $_POST;
-        echo "<pre>";
-        print_r($form);
         $tanggal            = date('Y-m-d');
         $judul              = $form['judul'];
         $isi                = $form['isiberita'];
@@ -226,31 +229,82 @@ class admin extends Controller {
         $newfile            = $random.$images;  // implement change name
         $path               = getcwd(); //path on  root directory web
         $dir                = $path.'/public/images/'; 
-
+        $lengtjudul         = strlen($judul);
+        $lengtisi           = strlen($isi);
+        
+        
         $error = array();
         $extfile=strtolower(substr($_FILES["file_gambar"]["name"],-3));
-        if(empty($judul)){
-            $error[] = 'Judul Tidak Boleh Kosong !'; 
-        }      
-        if(empty($isi)){
-            $error[] = 'Isi Tidak Boleh Kosong';
-        }
-
-        if(!empty($images)){
-            if($extfile != 'jpg'){
-                $error = 'Format Gambar Hanya *.Jpg yang di izinkan';
+        if(!empty($form)){
+            //validasi degan gambar
+            if(!empty($images)){ 
+                if(!empty($judul) && ($lengtjudul < 10)){
+                   $error[] ='Judul Minimal 10 Karakter';
+                }
+                if(!empty($isi) && ($lengtisi < 50)){
+                   $error[] = 'Isin Berita Miniman 50 Karakter !';
+                }
+                if($extfile !='jpg'){
+                   $error[] = 'Gambar Hanya Ektensi *.JPG yang diizinkan !';
+                }
+                
+                //hitung jumlah keaadan error
+                if(count($error) > 0){
+                    $msg = $error;
+                    require 'application/templates/admin/header.html';
+                    require 'application/views/admin/berita/index.html';
+                    require 'application/templates/admin/footer.html';
+                }
+                else{
+                    $modelberita = $this->loadModel($this->modelberita);
+                    $simpanberita = $modelberita->insertberitaall($tanggal,$judul,$isi,$newfile);
+                    $this->redirect('admin/berita');
+                }
             }
+            //validasi tampa gambar
+            else{
+                if(!empty($judul) && ($lengtjudul < 10)){
+                   $error[] ='Judul Minimal 10 Karakter';
+                }
+                if(!empty($isi) && ($lengtisi < 50)){
+                   $error[] = 'Isi Berita Miniman 50 Karakter !';
+                }
+                
+                //hitung jumlah error;              
+                if(count($error) > 0 ){
+                    $msg=$error;
+                    require 'application/templates/admin/header.html';
+                    require 'application/views/admin/berita/index.html';
+                    require 'application/templates/admin/footer.html';
+                }
+                
+                else {
+                    $modelberita = $this->loadModel($this->modelberita);
+                    $simpanberita = $modelberita->insertberitaall($tanggal,$judul,$isi,'null');
+                    $this->redirect('admin/berita');                   
+                }
+            }
+            
+  
         }
+     
+            
+      
+        
+        
+       
 
-
-
-        if(count($error) > 0){
-            echo "<pre>";
-            print_r($error);
-        }
-        else{
-            echo '\n succes \n';
-        }
+//
+//
+//        if(count($error) > 0){
+//            $msg = $error;
+//            print_r($error);
+//        }
+//        else{
+//            $Modelberita    = $this->loadModel($this->_modelberita);
+//            return $Modelberita->insertberitaall($tanggal,$judul,$isi,$images);
+//            
+//        }
     }
     
     

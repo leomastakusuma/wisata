@@ -20,7 +20,7 @@ ini_set("display_errors", 1);
  */
 define('URL', 'http://localhost/Wisata/');
 define('view', 'application/views/');
-
+define('UD','application/templates/admin');
 /**
  * Configuration for: Database
  * This is the place where you define your database credentials, database type etc.
