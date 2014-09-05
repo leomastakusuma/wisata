@@ -24,5 +24,20 @@ class beritamodels extends Models{
         $query->execute($data);      
         
     }
+    
+    public function deleteberita($id){
+        $sql     = "DELETE FROM {$this->table} ";
+        $sql    .= " WHERE id_berita = {$id}";
+        $query   = $this->db->prepare($sql);
+        $query->execute(array(":id_berita" => $id));
+    }
+    
+    public function searchberita($id){
+        $sql    = "SELECT * from {$this->table} WHERE id_berita= {$id}";
+        $query  = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetch();  
+    }
+    
 	
 }

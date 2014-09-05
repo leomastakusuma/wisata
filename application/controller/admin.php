@@ -219,6 +219,16 @@ class admin extends Controller {
         require 'application/templates/admin/footer.html';
         
     }
+    
+    public function beritaall(){
+        $modelberita = $this->loadModel($this->modelberita);
+        $getberita = $modelberita->getallberita();
+        require 'application/templates/admin/header.html';
+        require 'application/views/admin/berita/databerita.html';
+        require 'application/templates/admin/footer.html';
+    
+    }
+
     public function insertberita(){
         $form               = $_POST;
         $tanggal            = date('Y-m-d');
@@ -231,8 +241,8 @@ class admin extends Controller {
         $dir                = $path.'/public/images/'; 
         $lengtjudul         = strlen($judul);
         $lengtisi           = strlen($isi);
-        
-        
+
+
         $error = array();
         $extfile=strtolower(substr($_FILES["file_gambar"]["name"],-3));
         if(!empty($form)){
@@ -247,7 +257,7 @@ class admin extends Controller {
                 if($extfile !='jpg'){
                    $error[] = 'Gambar Hanya Ektensi *.JPG yang diizinkan !';
                 }
-                
+
                 //hitung jumlah keaadan error
                 if(count($error) > 0){
                     $msg = $error;
@@ -269,7 +279,7 @@ class admin extends Controller {
                 if(!empty($isi) && ($lengtisi < 50)){
                    $error[] = 'Isi Berita Miniman 50 Karakter !';
                 }
-                
+
                 //hitung jumlah error;              
                 if(count($error) > 0 ){
                     $msg=$error;
@@ -277,34 +287,35 @@ class admin extends Controller {
                     require 'application/views/admin/berita/index.html';
                     require 'application/templates/admin/footer.html';
                 }
-                
+
                 else {
                     $modelberita = $this->loadModel($this->modelberita);
                     $simpanberita = $modelberita->insertberitaall($tanggal,$judul,$isi,'null');
                     $this->redirect('admin/berita');                   
                 }
             }
-            
-  
-        }
-     
-            
-      
-        
-        
-       
 
-//
-//
-//        if(count($error) > 0){
-//            $msg = $error;
-//            print_r($error);
-//        }
-//        else{
-//            $Modelberita    = $this->loadModel($this->_modelberita);
-//            return $Modelberita->insertberitaall($tanggal,$judul,$isi,$images);
-//            
-//        }
+
+        }
+
+    }
+    
+    public function deleteberita($id_berita){
+         if(isset($id_berita)){
+             $modelberita    = $this->loadModel($this->modelberita);
+             $hapus          = $modelberita->deleteberita($id_berita);
+             $this->redirect('admin/beritaall');
+                    
+        }
+        
+    }
+    
+    public function beritaedit($id_berita){
+        if(isset($id_berita)){
+            $modelberita    = $this->loadModel($this->modelberita);
+            echo '<pre>';
+            print_r($getall = $modelberita->searchberita($id_berita));
+        }
     }
     
     
@@ -314,5 +325,3 @@ class admin extends Controller {
 
 
 
-
-      
