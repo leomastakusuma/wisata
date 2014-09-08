@@ -14,14 +14,14 @@ class Models extends Controller{
         }
     }
     
-    public function select($select,$table){
+    public function select($select,$table){  
         $sql        = "SELECT {$select} ";
         $sql       .= "FROM {$table}";
         $query      = $this->db->prepare($sql);
         $query      ->execute();
-//        print_r($query);die;  
         return      $query->fetchAll();   
     }
+
     #Funtion Search Row
     public function search($colums,$table,$conditon){
         

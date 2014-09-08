@@ -9,9 +9,7 @@
 
 <div id="page-wrapper">
             <div class="container-fluid">
-                <!-- Page Heading -->
-                <!--Content-->
-                <div class="row">
+                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             Data Reservasi <small></small>
@@ -37,9 +35,11 @@
                     foreach($msg as $message){
                         echo "<i class='fa fa-info-circle'></i> ".$message."<br />";
                     }
+                echo "</div>";    
                 endif;
+                
                ?> 
-               </div>
+               
                <!---->            
                 
                <div class="row">
@@ -81,13 +81,10 @@
                             </div>
                             </div>                               
                             </form>
-              
+                      
+                                
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                 <script src="<?php echo URL;?>public/sb-admin/js/jquery-1.11.0.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo URL;?>public/sb-admin/js/bootstrap.min.js"></script>

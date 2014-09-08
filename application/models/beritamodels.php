@@ -4,8 +4,12 @@ class beritamodels extends Models{
     private $table = 'berita';
     
     public function getallberita(){
-        $data = $this->select('*', $this->table);
-        return $data; 
+
+         $query   = "SELECT * From {$this->table}";
+         $sql     = $this->db->prepare($query);
+         $sql->execute();
+         return $sql->fetchAll();
+       
     }
     public function insertberitaall($tgl, $judul,$isi,$gambar){
         $iduser = '1';
@@ -20,7 +24,6 @@ class beritamodels extends Models{
         $sql .= " (id_user , tgl_berita, judul_berita, isi_berita, gambar)";
         $sql .= " VALUES ( :id_user, :tgl, :judul, :isi, :image )";
         $query = $this->db->prepare($sql);
-      
         $query->execute($data);      
         
     }

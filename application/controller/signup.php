@@ -4,7 +4,9 @@
 class signup extends Controller{
     private $model ='signupmodels';
     
-
+    public function __construct(){
+          Auth::handleLogin();
+    }
     public function index(){
         require 'application/templates/header.html';
         require 'application/templates/menu.html';

@@ -12,7 +12,6 @@ class usermodels extends Models{
     public function getalluser(){
         $sql = "SELECT id, user,pass FROM user";
         $query = $this->db->prepare($sql);
-//        print_r($query);die;
         $query->execute();
         return $query->fetchAll();
         
@@ -21,10 +20,8 @@ class usermodels extends Models{
  
     public function searchuser($id ){
         $sql    = "SELECT * from user WHERE id_user='{$id}'";
-        $query  = $this->db->prepare($sql);
-        
+        $query  = $this->db->prepare($sql);   
         $query->execute();
- 
         return $query->fetchAll();  
     
     }
@@ -33,20 +30,18 @@ class usermodels extends Models{
         $sql    = "DELETE FROM user WHERE id ='{$id}'";
         $query  = $this->db->prepare($sql);
         $query->execute(array(':id'=>$id));
-               
-        
-        
+ 
     }
     
-    public function getuser(){
-//        die;
-        $colums = 'id,user,pass';
-        $data   = $this->select($colums, $this->_table);
-        return $data;
-        
-        
-        
-    }
+//    public function getuser(){
+////        die;
+//        $colums = 'id,user,pass';
+//        $data   = $this->select($colums, $this->_table);
+//        return $data;
+//        
+//        
+//        
+//    }
     
     public function insertuser($username,$password){        
         $level  = 'user';
@@ -56,7 +51,14 @@ class usermodels extends Models{
         $query  = $this->db->prepare($sql);
         $query->execute($data);
     }
+    
+    public function getuserinfo(){
+        $sql    = "SELECT * from user WHERE id_user='{$_SESSION['id_user']}'";
+        $query  = $this->db->prepare($sql);   
+        $query->execute();
+        return $query->fetchAll();          
+    }
        
         
 }   
-   
+  

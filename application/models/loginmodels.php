@@ -19,7 +19,7 @@ class loginmodels extends Models{
                         
         $query->execute($data);
         return $query->fetchAll();
-
+       
 //        print_r($query);die;
     }
 }

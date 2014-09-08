@@ -1,4 +1,5 @@
 <?php
+//require 'application/libs/session.php';
 class login extends Controller {
 
     public function index(){
@@ -42,7 +43,9 @@ class login extends Controller {
            $this->view('login','index',$user);
     }
     
-    public function proses(){
+    public function proses(){  
+       
+       session_start();
        $form = $_POST;
        $username = $form['username'];
        $password = $form['password'];
@@ -64,20 +67,22 @@ class login extends Controller {
             else {
                 $login   = $this->loadModel('loginmodels');
                 $prosess = $login->loginaction($username,$password);
-                foreach($prosess as $row){
-                    $level= $row->level;
+                foreach ($prosess as $key => $value) {
+                   $level   = $value->level;
+                   $id_user = $value->id_user;
                 }
                 if(count($prosess)>0){
-                      if($level== 'admin'){
-                      $form['create']=  date('Y-d-m');
-                      $session  = $username;
-                      $_SESSION = $username.'-'.$form['create'];
-                      $this->redirect('admin');
-                      }
-                      if($level== 'user'){
-                      $form['create']=  date('Y-d-m');
-                      $_SESSION = $username.'-'.$form['create'];
-                      $this->redirect('home/news');}
+                  
+                  Session::init();
+                  Session::set('level', $level);
+                  Session::set('logged', true);
+                  Session::set('id_user',$id_user);
+                  if($level == 'admin'){
+                   $this->redirect('admin');
+                  }
+                  if($level == 'user'){
+                   $this->redirect('signup');
+                  }
                 }
                 else{
                    echo "<script>alert('username dan password salah !!')</script>";
@@ -90,6 +95,14 @@ class login extends Controller {
         
       
       
+    }
+
+    public function logout(){
+
+        Session::destroy();
+        header('location: ' . URL .  'login');
+        exit;
+   
     }
 }
     

@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 
+
 class Index extends Controller{
     
     public function index(){
@@ -18,7 +19,12 @@ class Index extends Controller{
     }
     
     public function Nama(){
-    	echo "Test";
+    	if(!empty($login)){
+            echo $login;
+        }
+        else {
+            echo 'a';
+            
+        }
     }
-    
 }

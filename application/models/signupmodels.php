@@ -10,10 +10,8 @@ class signupmodels extends Models{
     private $table='registrasi';
     
     public function getall(){
-        
-       
         $data = $this->select('*', $this->table);
-        
+//        print_r($data);die;
         return $data;
      
         

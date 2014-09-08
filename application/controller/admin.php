@@ -10,23 +10,26 @@
  * @author leomasta
  */
 //require 'application/templates/admin/view.php';
+//require 'application/libs/session.php';
+
 class admin extends Controller {
     //put your code here
     private  $modelreservasi = 'reservasimodels';
     private  $modelberita    = 'beritamodels';
     
     
+  public function __construct() {
+            parent::__construct();
+            Auth::handloginAdmin();
+            
+                     
+        }
     
-
-    public function index(){
-//        require 'application/templates/admin/index.html';
+   public function index(){
+        
         require 'application/templates/admin/header.html';
-//        require 'application/templates/admin/contents.html';
         require 'application/templates/admin/content.html';
         require 'application/templates/admin/footer.html';
-
-       
-        
     }    
     
    public function all(){
@@ -45,14 +48,11 @@ class admin extends Controller {
     public function insertreservasi(){
        
         $form               = $_POST;
-        
         $tanggal            = date('Y-m-d');
         $tujuan             = $form['tujuan'];
         $paket              = $form['paket'];
         $harga              = $form['harga'];
-        $images             = $_FILES[
-
-'file_gambar']['name'];
+        $images             = $_FILES['file_gambar']['name'];
         $random             = rand(0000,9999); //function random 
         $newfile            = $random.$images;  // implement change name
         $path               = getcwd(); //path on  root directory web
@@ -217,6 +217,7 @@ class admin extends Controller {
         require 'application/templates/admin/header.html';
         require 'application/views/admin/berita/index.html';
         require 'application/templates/admin/footer.html';
+
         
     }
     
@@ -313,8 +314,10 @@ class admin extends Controller {
     public function beritaedit($id_berita){
         if(isset($id_berita)){
             $modelberita    = $this->loadModel($this->modelberita);
-            echo '<pre>';
-            print_r($getall = $modelberita->searchberita($id_berita));
+            $getall = $modelberita->searchberita($id_berita);
+            require 'application/templates/admin/header.html';
+            require 'application/templates/admin/footer.html';
+//            require view.'admin/berita/editreservasi.html';     
         }
     }
     
