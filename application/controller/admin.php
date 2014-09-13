@@ -84,7 +84,7 @@ class admin extends Controller {
             }
 
 
-            if (($extfile != "jpg") || ($extfile != "png")) {
+            if ($extfile != "jpg") {
                 $error[] = 'Format Gambar Salah, Hanya ekstensi *.jpg yang diizinkan';
             }
 
@@ -297,14 +297,17 @@ class admin extends Controller {
             require 'application/templates/admin/header.html';
             require 'application/views/admin/berita/editberita.html';
             require 'application/templates/admin/footer.html';
-//            require view.'admin/berita/editreservasi.lhtml';     
+ 
         }
     }
     
     public function updateberitaall(){
+        $form = $_POST;
         
     }
     public function updateberita(){
+        echo '<pre>';
+        print_r($_POST);
         
     }
 
