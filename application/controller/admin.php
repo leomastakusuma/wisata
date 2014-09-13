@@ -300,14 +300,78 @@ class admin extends Controller {
  
         }
     }
-    
+   
     public function updateberitaall(){
-        $form = $_POST;
+        $form       = $_POST;
+        $tanggal    = date('Y-m-d H:i:s');
+        $id         = $form['id'];
+        $judul      = $form['judul'];
+        $isiberita  = $form['isiberita'];
+        $images     = $_FILES['file_gambar']['name'];
+        $random     = rand(0000, 9999); //function random 
+        $newfile    = $random . $images;  // implement change name
+        $path       = getcwd();
+        $dir        = $path.'/public/images/'; 
+        $lengtjudul = strlen($judul);
+        $lengtisi   = strlen($isiberita);
+        
+ 
+        $extfile = strtolower(substr($_FILES["file_gambar"]["name"], -3));        
+        if(!empty($form)){   
+                $error = array();
+                if (!empty($judul) && ($lengtjudul < 10)) {
+                    $error[] = 'Judul Minimal 10 Karakter';
+                }
+                if (!empty($isiberita) && ($lengtisi < 50)) {
+                    $error[] = 'Isin Berita Miniman 50 Karakter !';
+                }
+                if(!empty($images))
+                  if ($extfile != 'jpg') {
+                      $error[] = 'Gambar Hanya Ektensi *.JPG yang diizinkan !';
+                }
+                
+                if(count($error) > 0){
+                    $msg          = $error;
+                    $modelgambar  = $this->loadModel($this->modelberita);
+                    $gambar       = $modelgambar->searchberita($id);
+                    $loadgambar   = $gambar->gambar;
+//                    $loadidberita = 
+                    require 'application/templates/admin/header.html';
+                    require 'application/views/admin/berita/validasi.html';
+                    require 'application/templates/admin/footer.html';
+                }
+                else {
+                    $modelberita = $this->loadModel($this->modelberita);
+                    $gambar       = $modelberita->searchberita($id);
+                    $loadgambar   = $gambar->gambar;
+                if (!empty($images)) {
+                    if (file_exists($dir . $gambar->gambar)) {
+                        unlink($dir . $gambar->gambar);
+                    }
+                    $move_gambar = $dir . basename($newfile);
+                    move_uploaded_file($_FILES['file_gambar']['tmp_name'], $move_gambar);
+                    $data =array($tanggal,$judul,$isiberita,$newfile,$id);
+                    $simpan = $modelberita->updateberitaall($tanggal, $judul,$isiberita,$newfile,$id);
+                    $this->redirect('admin/beritaall');
+                    
+                    $this->redirect('admin/beritaall');
+                } else {
+                    $id_user     = $_SESSION['id_user'];
+                    $simpan      = $modelberita->updateberita($tanggal,$id_user,$judul,$isiberita,$id);
+                    $this->redirect('admin/beritaall');
+                    
+                }
+            }
+                    
+               
+        }
         
     }
     public function updateberita(){
-        echo '<pre>';
-        print_r($_POST);
+        $form   = $_POST;
+        if(!empty($form)){
+            
+        }
         
     }
 

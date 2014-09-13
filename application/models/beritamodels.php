@@ -43,15 +43,16 @@ class beritamodels extends Models{
     
     public function updateberitaall($tgl_berita,$judul_berita,$isi_berita,$gambar,$id_berita){
         $id_user = $_SESSION['id_user'];
-        $sql    = "UPDATE {$this->table} SET tgl_berita = ? , judul_berita = ? , isi_berita = ? , gambar = ? WHERE id_berita = ?";
+        $sql    = "UPDATE {$this->table} SET tgl_berita = ? ,id_user = ? , judul_berita = ? , isi_berita = ? , gambar = ? WHERE id_berita = ?";
         $query  = $this->db->prepare($sql);
-        $query->execute(array($tgl_berital , $judul_berita , $isi_berita ,$gambar , $id_user));
+        $query->execute(array($tgl_berita ,$id_user, $judul_berita , $isi_berita ,$gambar , $id_berita));
+        
                      
     }
-    public function updateberita($tgl_berita,$judul_berita,$isi_berita,$id_berita){
-        $id_user  = $_SESSION['id_user'];
-        $sql      = "UPDATE {$this->table} SET tgl_berita = ? , judul_berita = ? , isi_berita = ?  WHERE id_berita = ?";
-        $query->execute(array($tgl_berital , $judul_berita , $isi_berita , $id_user));
+    public function updateberita($tgl_berita,$id_user,$judul_berita,$isi_berita,$id_berita){
+        $sql      = "UPDATE {$this->table} SET tgl_berita = ? , id_user = ?,judul_berita = ? , isi_berita = ?  WHERE id_berita = ?";
+        $query    = $this->db->prepare($sql);
+        $query->execute(array($tgl_berita , $id_user, $judul_berita , $isi_berita ,$id_berita));
     }
     
 	
