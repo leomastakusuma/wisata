@@ -216,7 +216,7 @@ class admin extends Controller {
 
     public function insertberita() {
         $form = $_POST;
-        $tanggal = date('Y-m-d');
+        $tanggal = date('Y-m-d H:i:s');
         $judul = $form['judul'];
         $isi = $form['isiberita'];
         $images = $_FILES['file_gambar']['name'];
@@ -250,6 +250,9 @@ class admin extends Controller {
                     require 'application/views/admin/berita/index.html';
                     require 'application/templates/admin/footer.html';
                 } else {
+                    $move_gambar = $dir . basename($newfile);
+                    move_uploaded_file($_FILES['file_gambar']['tmp_name'], $move_gambar);
+                    
                     $modelberita = $this->loadModel($this->modelberita);
                     $simpanberita = $modelberita->insertberitaall($tanggal, $judul, $isi, $newfile);
                     $this->redirect('admin/berita');
@@ -292,13 +295,17 @@ class admin extends Controller {
             $modelberita = $this->loadModel($this->modelberita);
             $getall = $modelberita->searchberita($id_berita);
             require 'application/templates/admin/header.html';
-            echo '<pre>';
-              print_r($getall);
-            echo '</pre>';
-              require 'application/views/admin/berita/editberita.html';
+            require 'application/views/admin/berita/editberita.html';
             require 'application/templates/admin/footer.html';
 //            require view.'admin/berita/editreservasi.lhtml';     
         }
+    }
+    
+    public function updateberitaall(){
+        
+    }
+    public function updateberita(){
+        
     }
 
 }
