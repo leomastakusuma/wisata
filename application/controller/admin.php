@@ -11,8 +11,6 @@
  */
 
 //require 'application/templates/admin/view.php';
-require 'application/controller/admen/test.php';
-require 'application/controller/admen/berita.php';
 class admin extends Controller {
 
     //put your code here
@@ -399,8 +397,6 @@ class admin extends Controller {
         }
     }
     
-    public function io() {
     
-    }
 
 }

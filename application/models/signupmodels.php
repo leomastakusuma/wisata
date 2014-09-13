@@ -10,9 +10,16 @@ class signupmodels extends Models{
     private $table='registrasi';
     
     public function getall(){
-        $data = $this->select('*', $this->table);
-//        print_r($data);die;
-        return $data;
+//        $data = $this->select('*', $this->table);
+////        print_r($data);die;
+//        return $data;
+        
+         $query   = "SELECT * From {$this->table}";
+         print_r($query);
+         $sql     = $this->db->prepare($query);
+         $sql->execute();
+         return $sql->fetchAll();
+       
      
         
     }
@@ -30,6 +37,7 @@ class signupmodels extends Models{
         
         $sql = "INSERT INTO {$this->table} (nama, alamat, notelp,email,username,password,tgl_registrasi)";
         $sql .= "VALUES (:nama, :alamat, :notelp, :email, :username, :password, :tgl_registrasi)";
+//        print_r($sql);die;
         $query = $this->db->prepare($sql);
         $query->execute($data);
         
