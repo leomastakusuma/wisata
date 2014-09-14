@@ -6,6 +6,7 @@
  * and open the template in the editor.
  */
 
+require_once 'plugins/page.php';
 class reservasimodels extends Models {
   
     private $table = 'reservasi';
@@ -63,5 +64,28 @@ class reservasimodels extends Models {
         $sql    .= " WHERE id_reservasi = {$id}";
         $query   = $this->db->prepare($sql);
         $query->execute(array(":id_reservasi" => $id));
+    }
+    public function pagex(){
+        $num_row = $this->db->query('SELECT COUNT(*) from reservasi')->fetchColumn();
+        $pages   = new Paginator($num_row,9,array(15,3,6,9,12,25,50,100,250,'All'));
+//        echo $pages->display_pages();
+        
+//        echo "<div align='center'>";
+//        echo "<ul class='pagination'>";
+//                          echo "<li><a href='#'>&laquo;</a></li>";
+//                           echo "<li><a href='#'>".$pages->display_jump_menu().."</a></li>";
+//                           echo "<li><a href='#'>&raquo</a></li>";
+//                         echo "</ul>";
+//                     echo "</div>";    
+        echo "<span class=\"\">".$pages->display_jump_menu().$pages->display_items_per_page()."</span>";
+        
+        $query = "SELECT * FROM {$this->table} ORDER BY id_reservasi ASC LIMIT :start, :end";
+        $stmt  = $this->db->prepare($query);
+	$stmt->bindParam(':start', $pages->limit_start, PDO::PARAM_INT);
+	$stmt->bindParam(':end', $pages->limit_end, PDO::PARAM_INT);
+	$stmt->execute();
+	$result = $stmt->fetchAll();
+        return $result;
+        
     }
 }

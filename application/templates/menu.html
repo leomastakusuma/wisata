@@ -2,10 +2,24 @@
 		<div class="col-md-12 column">
                           <div class="row clearfix">
                             <div class="col-md-3 column">
+                                        <!--<?php //Session::init();?>-->
 					<div class="list-group">
                                               <a href="#" class="list-group-item active">Menu</a>
-                                              <a href="<?php echo URL;?>login" class="list-group-item">Login</a>
-                                              <a href="<?php echo URL;?>signup" class="list-group-item">Sign Up</a>
-                                              <a href="<?php echo URL;?>signup/succes" class="list-group-item">Buku Tamu</a>
+<!--                                              <?php //if (Session::get('logged') == false):?>-->
+                                                   <a href="<?php echo URL;?>login" class="list-group-item">Login</a>
+                                                   <a href="<?php echo URL;?>signup" class="list-group-item">Sign Up</a>
+                                                   <a href="<?php echo URL;?>bukutamu" class="list-group-item">Buku Tamu</a>
+                                              <?php //endif; ?>    
+                                              <!--<?php //if (Session::get('logged') == true):?>-->
+                                                                          
+                                              <a href="<?php echo URL;?>reservasi" class="list-group-item">Reservasi</a>
+                                              
+                                              <a href="<?php echo URL;?>logout/logoutUser" class="list-group-item">Logout</a>
+
+                                                     
+                                              <!--<?php //else: ?>-->
+                                       
+                                              <!--<?php //endif; ?>-->
+                                            
                                         </div>
 				</div>
