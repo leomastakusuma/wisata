@@ -6,7 +6,9 @@ class bukutamu extends Controller{
     public function index(){
      require 'application/templates/header.html';
      require 'application/templates/menu.html';
+//     require 'application/views/bukutamu/databukutamu.html';
      require 'application/views/bukutamu/index.html';
+     
      require 'application/templates/footer.php';
        
        

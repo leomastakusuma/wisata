@@ -10,8 +10,10 @@ class bukutamumodels extends Models{
     private $table = 'bukutamu';
     
     public function getall(){
-       $data = $this->select('*', $this->table);
-       return $data;
+       $sql   = "SELECT * FROM {$this->table} order by tanggal desc";
+       $query = $this->db->prepare($sql);
+       $query->execute();
+       return $query->fetchAll();
     }
     
     public function save($nama,$email,$komentar,$tanggal){
