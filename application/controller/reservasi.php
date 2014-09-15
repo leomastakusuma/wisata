@@ -31,7 +31,7 @@ class reservasi extends Controller{
             $model = $this->loadModel($this->_model);
             $getall=$model->searchreservasi($idreservasi);
         
-            require 'application/templates/header.html';
+            require 'application/templates/header-page.html';
             require 'application/templates/menu.html'; 
             require 'application/views/reservasi/order.html';
             require 'application/templates/footer.php';
@@ -41,31 +41,48 @@ class reservasi extends Controller{
 
 
     public function booking(){
-        echo '<pre>';
+ 
         $id_user        = $_SESSION['id_user'];
         $form           = $_POST;
         $id_reservasi   = $form['id'];
         $tanggal        = $form['tanggal'];
-        $pesan          = $form['pesan'];
+        $pesan          = $form['Pesan'];
         
         
-        $model   = $this->loadModel($this->_modelorder);
         
-        $id_reservasi = '19';
-        $jml          = 12;
-        $harga        = 100000000;
-        print_r($_POST);
-//        $model->saveorder($id_reservasi, $id_user, $jml,$harga);
-        
-        
-//        echo $id_user;
-//        print_r($_POST);
-////    	if (isset($idreservasi)) {
-//            $model = $this->loadModel($this->_model);
-//            $getall = $model->searchreservasi($idreservasi);
-//            echo "<pre>";
-//            print_r($getall);
-//        }
+        if(!empty($form)){
+            $error = array();
+            $model = $this->loadModel($this->_modelorder);
+            if(empty($tanggal)){
+                $error[]= 'Tanggal boleh kosong';
+            }
+            if(empty($pesan)){
+                $error[]= 'Jumlah Pesan boleh kosong';
+            }
+            if(!empty($tanggal) && !empty($pesan)){
+               
+               $cek   = $model->cekorder($id_reservasi, $tanggal);
+               if(count($cek)>0){
+                   $error[] = 'Transaksi Tidak Dapat dilakukan silahkan pilih tanggal lain';
+               }
+            }
+            
+            if(count($error) > 0){
+                echo '<pre>';
+                print_r($error);
+            }
+            else{
+                $modelreservasi = $this->loadModel($this->_model);
+                $search         = $modelreservasi->searchreservasi($id_reservasi);
+                $harga          = $search->harga;
+               
+                //simpan ke database
+                
+                $model->saveorder($id_reservasi, $id_user, $pesan,$harga);
+                
+            }
+        }       
+
     }
    
     public function cek(){

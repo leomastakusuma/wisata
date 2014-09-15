@@ -4,6 +4,17 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
+  
+  <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>public/datepicker/css/datepicker.css"> 
+  <script src="<?php echo URL; ?>public/datepicker/js/jquery-2.js"></script>
+  <script src="<?php echo URL; ?>public/datepicker/js/jquery-ui.js"></script>
+  
+  <script>
+   
+   $(function() {
+               $("#datepicker").datepicker({ dateFormat: "yy-mm-dd" }).val()
+       });
+  </script>
 
 
 
@@ -11,7 +22,7 @@
     <div class="row clearfix">
     <div class="col-md-12 column">
         <div class="panel panel-primary">
-        <div class="panel-heading">Form Registrasi</div>
+        <div class="panel-heading">Form Reservasi </div>
             <div class="panel-body">
                 <strong>*</strong>Wajib diisi<br><br>
                 
@@ -75,7 +86,7 @@
                             <div class="col-sm-4">
                                 <img src="<?php echo URL .'public/images/'.$getall->image?>" alt="IMAGE" class="img-rounded" width='100%'></p>
                                 
-                            <p class="help-block">Pilih Gambar *.jpg</p>
+                            
                             </div>
                             </div>
                             
@@ -83,17 +94,17 @@
                             <div class="form-group">
                             <label for="tanggal" class="col-sm-2 control-label">Tanggal Pesan*</label>
                             <div class="col-sm-3">
-                            <input class="form-control" type="text" name="tanggal" id="tujuan" placeholder="YY-MM-DD" ">
+                            <input class="form-control" type="text" name="tanggal" id="datepicker" placeholder="YY-MM-DD" ">
                             </div>
                             </div> 
                             
                             <div class="form-group">
                             <label for="Pesan" class="col-sm-2 control-label">Jumlah Pesan*</label>
                             <div class="col-sm-5">
-                            <input class="form-control" type="text" name="Pesan" id="tujuan" placeholder="Pesan" ">
+                                <input class="form-control" type="text" name="Pesan" id="pesan" placeholder="Pesan" value="<?php if(!empty($form['pesan'])) echo $form['pesan'];?>">
                             </div>
                             </div> 
-                                
+                            
                             <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-default">Pesan</button>
@@ -104,64 +115,7 @@
                           </form>
                                 
                            <?php }?> 
-                           <?php if(!empty($msg)) {
-                                                  
-                           ?> 
-                           <form class="form-horizontal" role="form" action="<?php echo URL?>admin/saveeditreservasi" method="post" enctype="multipart/form-data" >
-                            <div class="form-group">
-                            <input type="hidden" name ='id' value="<?php echo $form['id']?>">
-                            <label for="nama" class="col-sm-2 control-label">Tujuan</label>
-                            <div class="col-sm-7">
-                            <input class="form-control" type="text" name="tujuan" id="tujuan" placeholder="Tujuan" value="<?php if(!empty($form['tujuan'])) echo $form['tujuan']?>">
-
-                            </div>
-                            </div>
-                            
-                            <div class="form-group">
-                            <label for="durasi" class="col-sm-2 control-label">Durasi</label>
-                            <div class="col-sm-5">
-                            <input class="form-control" type="text" name="durasi" id="tujuan" placeholder="Durasi" value="<?php if(!empty($form['durasi'])) echo $form['durasi'] ?>">
-                            </div>
-                            </div>  
-                               
-                            <div class="form-group">
-                            <label for="paket" class="col-sm-2 control-label">Include Paket </label>
-                            <div class="col-sm-9">
-                            <textarea class="form-control" id="paket" placeholder="Include Paket" name="paket" cols="5" rows="15"><?php if(!empty($form['paket'])) echo $form['paket'] ?></textarea>   
-                            </div>
-                            </div>    
-                                                         
-                            <div class="form-group">
-                            <label for="harga" class="col-sm-2 control-label">Harga </label>
-                            <div class="col-sm-3">
-                            <div class="input-group">
-                            <div class="input-group-addon">Rp</div>
-                            <input class="form-control" type="text" placeholder="Harga"  onkeypress="return isNumberKey(event)" id="harga" name="harga" value="<?php if(isset($form['harga'])) echo $form['harga']?>">
-                            </div>
-                            </div>
-                            </div>
                            
-                                                        
-                            <div class="form-group">
-                            <label for="file_gambar" class="col-sm-2 control-label">Gambar </label>
-                            <div class="col-sm-4">
-                                <img src="<?php echo URL .'public/images/'.$gambar->image?>" alt="IMAGE" class="img-rounded" width='100%'></p>
-                                <input type="file" id="file_gambar" name="file_gambar">
-                            <p class="help-block">Pilih Gambar *.jpg</p>
-                            </div>
-                            </div>
-                            
-                                
-                            <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Simpan</button>
-                            <button type="reset" class="btn btn-default">Hapus</button>
-                            </div>
-                            </div>
-                                                             
-                           </form>
-                                
-                           <?php }?>
                            
                                 
                             </div>
@@ -169,16 +123,6 @@
                     </div>
                 </div>
                      
-                 <script src="<?php echo URL;?>public/sb-admin/js/jquery-1.11.0.js"></script>
+              
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?php echo URL;?>public/sb-admin/js/bootstrap.min.js"></script>
-
-    <script type="text/JavaScript">
-    function isNumberKey(evt){
-    var charCode = (evt.which) ? evt.which : evt.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
-        return false;
-    return true;
-}
-    </script>
+    

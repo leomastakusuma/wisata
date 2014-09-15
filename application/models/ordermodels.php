@@ -22,8 +22,7 @@ class ordermodels extends Models{
                       ':tgl_pemesanan'  => $tanggal,
                       ':status'         => $status
                       );
-                      echo '<pre>';
-                      print_r($data);
+                     
         $sql  = "INSERT INTO {$this->_table}";
         $sql .= " (id_reservasi , id_user ,jml_reservasi , total_harga , tgl_pemesanan , status )";
         $sql .= " VALUES ( :id_reservasi, :id_user, :jml_reservasi, :total_harga, :tgl_pemesanan, :status )";
@@ -37,8 +36,9 @@ class ordermodels extends Models{
         $sql    .= " WHERE $this->_table.id_reservasi = $this->_tablereservasi.id_reservasi";
         $sql    .= " AND $this->_table.tgl_pemesanan LIKE '%$tanggal%'";
         $sql    .= " AND $this->_tablereservasi.id_reservasi = $id_reservasi";
+//        echo $sql;die;
         $query  = $this->db->prepare($sql);
         $query->execute();
-        return $query->fetch();  
+        return $query->fetchAll();  
     }
 }
