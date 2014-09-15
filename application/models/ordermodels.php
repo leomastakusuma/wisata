@@ -8,25 +8,37 @@
 
 class ordermodels extends Models{
     private $_table = 'transaksi';
+    private $_tablereservasi = 'reservasi';
     
-    public function saveorder($id_reservasi, $id_user, $jml,$harga,$tgl){
+    public function saveorder($id_reservasi, $id_user, $jml,$harga){
         $tanggal = date('Y-m-d');
+        $status  = 'ord';
         $bayar   = $jml * $harga;
         
         $data = array(':id_reservasi'   => $id_reservasi,
                       ':id_user'        =>$id_user,
                       ':jml_reservasi'  => $jml,
-                      ':total_harga'    => number_format($bayar),
-                      ':tgl_pemesanan'  => $paket,
-                      ':status'         => $gambar,
+                      ':total_harga'    => $bayar,
+                      ':tgl_pemesanan'  => $tanggal,
+                      ':status'         => $status
                       );
-
-        $sql  = "INSERT INTO {$this->table}";
-        $sql .= " (tgl_reservasi , tujuan,durasi, harga, include_paket, image)";
-        $sql .= " VALUES ( :tgl, :tujuan, :durasi, :harga, :include_paket, :image )";
+                      echo '<pre>';
+                      print_r($data);
+        $sql  = "INSERT INTO {$this->_table}";
+        $sql .= " (id_reservasi , id_user ,jml_reservasi , total_harga , tgl_pemesanan , status )";
+        $sql .= " VALUES ( :id_reservasi, :id_user, :jml_reservasi, :total_harga, :tgl_pemesanan, :status )";
         $query = $this->db->prepare($sql);
-      
         $query->execute($data);      
        
+    }
+    
+    public function cekorder($id_reservasi, $tanggal){
+        $sql     = "SELECT * from {$this->_table} , {$this->_tablereservasi}";
+        $sql    .= " WHERE $this->_table.id_reservasi = $this->_tablereservasi.id_reservasi";
+        $sql    .= " AND $this->_table.tgl_pemesanan LIKE '%$tanggal%'";
+        $sql    .= " AND $this->_tablereservasi.id_reservasi = $id_reservasi";
+        $query  = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetch();  
     }
 }
