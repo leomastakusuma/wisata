@@ -12,22 +12,23 @@ class reservasimodels extends Models {
     private $table = 'reservasi';
     
     public function getall(){
-        $data = $this->select('*', $this->table);
+        $data = $this->select('*', $this->table.' order by tgl_reservasi desc');
         return $data;
     }
      
-    public function insertreservasi($tanggal,$tujuan,$harga,$paket,$gambar){
+    public function insertreservasi($tanggal,$tujuan, $durasi,$harga,$paket,$gambar){
        
-        $data = array(':tgl' => $tanggal,
-                      ':tujuan'        => $tujuan,
-                      ':harga'         => $harga,
-                      ':include_paket' => $paket,
-                      ':image'         => $gambar
+        $data = array(':tgl'            => $tanggal,
+                      ':durasi'         =>$durasi,
+                      ':tujuan'         => $tujuan,
+                      ':harga'          => $harga,
+                      ':include_paket'  => $paket,
+                      ':image'          => $gambar
                       );
 
         $sql  = "INSERT INTO {$this->table}";
-        $sql .= " (tgl_reservasi , tujuan, harga, include_paket, image)";
-        $sql .= " VALUES ( :tgl, :tujuan, :harga, :include_paket, :image )";
+        $sql .= " (tgl_reservasi , tujuan,durasi, harga, include_paket, image)";
+        $sql .= " VALUES ( :tgl, :tujuan, :durasi, :harga, :include_paket, :image )";
         $query = $this->db->prepare($sql);
       
         $query->execute($data);      
@@ -43,20 +44,20 @@ class reservasimodels extends Models {
     }
 
     //update dengan gambar
-    public function updatereservasiall($tgl,$tujuan,$paket,$harga,$gambar,$id){
+    public function updatereservasiall($tgl,$tujuan,$durasi,$paket,$harga,$gambar,$id){
         // echo $tgl .'<br>'.$tujuan .'<br>'.$paket.'<br>'. $harga .'<br>'. $gambar.'<br>' . $id;die ;
-        $sql    = "UPDATE {$this->table} SET tgl_reservasi = ? , tujuan = ? , harga = ? ,include_paket = ? , image = ? WHERE id_reservasi = ?";
+        $sql    = "UPDATE {$this->table} SET tgl_reservasi = ? , tujuan = ? ,durasi = ?, harga = ? ,include_paket = ? , image = ? WHERE id_reservasi = ?";
         $query  = $this->db->prepare($sql);
-        $query->execute(array($tgl , $tujuan , $harga , $paket ,$gambar , $id));
+        $query->execute(array($tgl , $tujuan ,$durasi, $harga , $paket ,$gambar , $id));
                      
     }
 
     //update tampa gambar
-    public function updatereservasi($tgl,$tujuan,$paket,$harga,$id)
+    public function updatereservasi($tgl,$tujuan,$durasi,$paket,$harga,$id)
     {
-       $sql     = "UPDATE {$this->table} SET tgl_reservasi = ? , tujuan = ? , harga = ? ,include_paket = ?  WHERE id_reservasi = ?";
+       $sql     = "UPDATE {$this->table} SET tgl_reservasi = ? , tujuan = ?, durasi = ? , harga = ? ,include_paket = ?  WHERE id_reservasi = ?";
        $query   = $this->db->prepare($sql);
-       $query->execute(array($tgl, $tujuan ,  $harga ,$paket ,$id));
+       $query->execute(array($tgl, $tujuan ,$durasi,  $harga ,$paket ,$id));
     }
     
     public function deletereservasi($id){

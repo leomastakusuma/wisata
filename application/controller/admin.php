@@ -51,8 +51,9 @@ class admin extends Controller {
     public function insertreservasi() {
 
         $form = $_POST;
-        $tanggal = date('Y-m-d');
+        $tanggal = date('Y-m-d H:i:s');
         $tujuan = $form['tujuan'];
+        $durasi = $form['durasi'];
         $paket = $form['paket'];
         $harga = $form['harga'];
         $images = $_FILES['file_gambar']['name'];
@@ -70,10 +71,12 @@ class admin extends Controller {
             $error = array();
 
 
-            if (!validname($tujuan)) {
+            if (empty($tujuan)) {
                 $error[] = 'Format Tujuan Salah, Tidak dizinkan format Alphanumeric,Hanya [A-Z,a-z]';
             }
-
+            if(empty($durasi)){
+                $error[] = 'Durasi Tidak Boleh Kosong';
+            }
             if (empty($paket)) {
                 $error[] = 'Paket Tidak Boleh Kosong';
             }
@@ -97,7 +100,7 @@ class admin extends Controller {
 
                 //simpan ke database
                 $model = $this->loadModel($this->modelreservasi);
-                $simpan = $model->insertreservasi($tanggal, $tujuan, $harga, $paket, basename($newfile));
+                $simpan = $model->insertreservasi($tanggal, $tujuan,$durasi, $harga, $paket, basename($newfile));
                 $this->redirect('admin/datareservasi');
             }
         }
@@ -117,7 +120,8 @@ class admin extends Controller {
     public function saveeditreservasi() {
         $form = $_POST;
         $id = $form['id'];
-        $tanggal = date('Y-m-d');
+        $tanggal = date('Y-m-d H:i:s');
+        $durasi  = $form['durasi'];
         $tujuan = $form['tujuan'];
         $paket = $form['paket'];
         $harga = $form['harga'];
@@ -132,10 +136,12 @@ class admin extends Controller {
 
             $extfile = strtolower(substr($_FILES["file_gambar"]["name"], -3));
             $error = array();
-            if (!validname($tujuan)) {
+            if (empty($tujuan)) {
                 $error[] = 'Format Tujuan Salah, Tidak dizinkan format Alphanumeric,Hanya [A-Z,a-z]';
             }
-
+            if(empty($durasi)){
+                 $error[] = 'Durasi Tidak Boleh Kosong';
+            }
             if (empty($paket)) {
                 $error[] = 'Paket Tidak Boleh Kosong';
             }
@@ -169,11 +175,11 @@ class admin extends Controller {
                     }
                     $move_gambar = $dir . basename($newfile);
                     move_uploaded_file($_FILES['file_gambar']['tmp_name'], $move_gambar);
-                    $simpan = $modelreservasi->updatereservasiall($tanggal, $tujuan, $paket, $harga, $newfile, $id);
+                    $simpan = $modelreservasi->updatereservasiall($tanggal, $durasi,$tujuan, $paket, $harga, $newfile, $id);
                     $this->redirect('admin/datareservasi');
                 } else {
 
-                    $simpan = $modelreservasi->updatereservasi($tanggal, $tujuan, $paket, $harga, $id);
+                    $simpan = $modelreservasi->updatereservasi($tanggal, $tujuan, $durasi,$paket, $harga, $id);
                     $this->redirect('admin/datareservasi');
                 }
             }

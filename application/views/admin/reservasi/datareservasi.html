@@ -36,6 +36,7 @@
                                         <th>ID</th>
                                         <th>Tanggal</th>
                                         <th>Tujuan</th>
+                                        <th>Durasi</th>
                                         <th>Harga</th>
                                         <th>Include Paket</th>
                                         <th>Pilihan</th>
@@ -52,6 +53,7 @@
                                     <td><?php echo $no ?></td>
                                     <td><?php echo $row->tgl_reservasi?></td>
                                     <td><?php echo $row->tujuan?></td>
+                                    <td><?php echo $row->durasi ?></td>
                                     <td><?php echo $row->harga?></td>
                                     <td><?php echo $row->include_paket?></td>
                                     <td><a href="<?php echo URL.'admin/editreservasi/'. $row->id_reservasi ?>">Edit</a> / <a href="<?php echo URL .'admin/deletereservasi/'. $row->id_reservasi ?>"> Hapus</a></td>

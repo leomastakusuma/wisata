@@ -1,0 +1,105 @@
+<style type="text/css" class="init">*/
+
+    body { font-size: 140%; }
+
+</style>
+<script type="text/javascript" class="init">
+
+
+    $(document).ready(function() {
+        $('#example').dataTable();
+    });
+
+</script>
+
+
+
+<div class="col-md-9 column">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="panel panel-default">
+                <div class="panel-body">             
+                    <!--isi content-->
+                    <div class="row">
+                        <div class="center-block">
+                            <div class="col-xs-12 col-md-12">
+
+                                <div class="row">
+
+                                    <?php if(!empty($getall) ):?>
+                                    <?php foreach ($getall as $row) { ?>
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            <img alt="300x200" src="<?php echo URL .'public/images/'.$row->image?>" class="img-rounded" width='100%'></p>
+                                            <!-- <img alt="300x200" src="<?php echo URL;?>public/img/pahawang.jpg" class="img-rounded" /> -->
+                                            <div class="caption">
+                                                <h3>
+                                                    <?php echo $row->tujuan;?>
+                                                </h3>
+                                                <p>
+                                                    Harga Rp.<?php echo number_format($row->harga);?>
+                                                </p>
+                                                <a href="<?php echo URL.'reservasi/booking/'.$row->id_reservasi;?>" class="btn btn-primary active btn-xs" type="button">Detail</a><span class="label label-default"></span><span class="label label-default"></span>	
+                                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal">
+                                                    Pesan &raquo
+                                                </button>
+
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                                <h4 class="modal-title" id="myModalLabel">Pesan</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p class="text-justify text-danger">
+                                                                <table width="50%">
+                                                                    <div class="form-group">
+                
+                                                                    <form class="form-horizontal" role="form" method="post" action="<?php echo URL;?>reservasi/booking">
+                                                                        <tr>
+                                                                        <input type="hidden" name="idreservasi" value="<?php echo $row->id_reservasi?>">
+                                                                         <td>Tanggal</td>
+                                                                        <td> <input type="text" class="form-control" name="nama" size="5" maxlength="5" id="dp2"data-date-format="mm/dd/yy"></td>
+                                                                        
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Tanggal</td>
+                                                                            <td><input type="text" class="form-control" name="tanggal" size="5" maxlength="5" id="dp2"data-date-format="mm/dd/yy"></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="3" align="right">
+                                                                                <input type="submit" name="simpan" value="simpan" class="btn btn-default">
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        
+                                                                        </div>
+                                                                    </form>                        
+                             
+                                                                </table>
+                                                                </p>
+                                                            </div>
+                                                            
+                                                        
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    }?>
+                                    <?php endif;?>		
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 	
+        
