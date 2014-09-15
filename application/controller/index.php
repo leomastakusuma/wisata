@@ -12,14 +12,7 @@ class Index extends Controller{
 
 
     public function index(){
-//        require_once 'application/templates/user.php';
-//    require_once 'application/views/index/index.html';
-      require_once 'application/templates/header.html';
-      require_once 'application/templates/menu.html';
-      $model        = $this->loadModel($this->model);
-      $get          = $model->geta();
-      require_once 'application/templates/content.php';
-      require_once 'application/templates/footer.php';  
+        $this->redirect('test')  ;
         
         
         

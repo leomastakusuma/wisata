@@ -14,8 +14,9 @@
 class admin extends Controller {
 
     //put your code here
-    private $modelreservasi = 'reservasimodels';
-    private $modelberita = 'beritamodels';
+    private $modelreservasi     = 'reservasimodels';
+    private $modelberita        = 'beritamodels';
+    private $modeltransaksi     = 'ordermodels';
 
     public function __construct() {
         parent::__construct();
@@ -404,6 +405,11 @@ class admin extends Controller {
         }
     }
     
+    public function orderORD(){
+        $model  = $this->loadModel($this->modeltransaksi);
+        $getall = $model->getall();
+        print_r($getall);
+    }
     
 
 }

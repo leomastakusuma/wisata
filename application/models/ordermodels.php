@@ -42,4 +42,14 @@ class ordermodels extends Models{
         $query->execute();
         return $query->fetchAll();  
     }
+    
+    public function getall(){
+        $sql = "SELECT * FROM $this->_table";
+        $sql.= " WHERE status = 'ORD' ";
+        $query  = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();  
+                
+        
+    }
 }
