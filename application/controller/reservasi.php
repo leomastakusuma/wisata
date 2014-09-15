@@ -46,6 +46,8 @@ class reservasi extends Controller{
         $form           = $_POST;
         $id_reservasi   = $form['id'];
         $tanggal        = $form['tanggal'];
+        $rand           = rand(00, 99);
+        $invoice        = 'PNR'.$rand;
         $pesan          = $form['Pesan'];
         
         
@@ -53,6 +55,8 @@ class reservasi extends Controller{
         if(!empty($form)){
             $error = array();
             $model = $this->loadModel($this->_modelorder);
+            $modelreservasi = $this->loadModel($this->_model);
+
             if(empty($tanggal)){
                 $error[]= 'Tanggal boleh kosong';
             }
@@ -68,18 +72,21 @@ class reservasi extends Controller{
             }
             
             if(count($error) > 0){
-                echo '<pre>';
-                print_r($error);
+                $msg     = $error;            
+                $getall  = $modelreservasi->searchreservasi($id_reservasi);
+                require 'application/templates/header-page.html';
+                require 'application/templates/menu.html'; 
+                require 'application/views/reservasi/order.html';
+                require 'application/templates/footer.php';
             }
             else{
-                $modelreservasi = $this->loadModel($this->_model);
                 $search         = $modelreservasi->searchreservasi($id_reservasi);
                 $harga          = $search->harga;
                
                 //simpan ke database
                 
-                $model->saveorder($id_reservasi, $id_user, $pesan,$harga);
-                
+                $model->saveorder($id_reservasi, $id_user, $pesan,$harga,$invoice);
+                require 'application/views/reservasi/succes.html';
             }
         }       
 
