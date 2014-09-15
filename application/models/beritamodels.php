@@ -11,6 +11,14 @@ class beritamodels extends Models{
          return $sql->fetchAll();
        
     }
+    public function geta(){
+      
+        $data = $this->select('*', $this->table.' order by tgl_berita desc');
+        return $data;
+    
+    }
+
+
     public function insertberitaall($tgl, $judul,$isi,$gambar){
         $iduser = $_SESSION['id_user'];
         $data = array(':id_user'        => $iduser,

@@ -14,13 +14,13 @@ class Logout extends Controller{
     public function logoutAdmin(){
         Auth::handloginAdmin();
         Session::destroy();
-        header('location: ' . URL .  'login');
+        header('location: ' . URL );
         exit;
     }
     public function logoutUser(){
         Auth::handleLogin();
         Session::destroy();
-        header('location: ' . URL .  'login');
+        header('location: ' . URL );
         exit;
         
     }
