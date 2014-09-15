@@ -2,11 +2,11 @@
 					<div class="row clearfix">
 						<div class="col-md-12 column">
               <!-- Paket Wisata-->
-              <h2>
+<!--              <h2>
                   Paket Wisata <hr>
               </h2>
               <div class="row">
-                    <!--First-->
+                    First
                     <div class="col-md-4">
                         <div class="thumbnail">
                         <img alt="300x200" src="<?php echo URL;?>public/img/pahawang.jpg" class="img-rounded" />
@@ -20,7 +20,7 @@
                         </div>
 								    </div>
 								
-                    <!--Second-->
+                    Second
                     <div class="col-md-4">
 								       <div class="thumbnail">
       								 <img alt="300x200" src="<?php echo URL;?>public/img/kiluan.jpg" class="img-rounded" />
@@ -33,7 +33,7 @@
       								  </div>
 								    </div>
 
-                     <!--Third-->
+                     Third
 								    <div class="col-md-4">
 									     <div class="thumbnail">
                        <img alt="300x300" src="<?php echo URL;?>public/img/klara.jpg" class="img-rounded"/>
@@ -47,7 +47,7 @@
 								       </div>
 						        </div>
               </div>
-                                                                                                                  
+                                                                                                                  -->
               <!-- Berita -->
               <div class="panel panel-default">
                   <div class="panel-body">

@@ -178,6 +178,12 @@ $getuserinfo    = $modeluser->getuserinfo();
                     <?php $active3 = "<li class='active'>"?>
                     <?php endif;?>
                     
+                    <?php $active4 = '<li>'?>
+                    <?php $kata = substr($value,20);?>
+                    <?php if(($value == 'admin/transaksiorder') || ($value == 'admin//'.$kata) || ($value == 'admin/')) :?>
+                    <?php $active3 = "<li class='active'>"?>
+                    <?php endif;?>
+                    
                     <?php endforeach?>
                     
                     
@@ -213,8 +219,17 @@ $getuserinfo    = $modeluser->getuserinfo();
                     
                     
                     
-                    <li>
-                        <a href="# <?php //echo URL?>admin/table"><i class="fa fa-fw fa-table"></i> Transaksi Orders</a>
+                    <?php echo $active4 ;?>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#transaksi"><i class="fa fa-fw fa-table"></i> Transaksi Orders</a>
+                        <ul id="transaksi" class="collapse">
+                        <li>
+                            <a href="<?php echo URL?>admin/reservasi">ORDER (ORD)</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo URL?>admin/datareservasi">ORDER (SKS)</a>
+                        </li>
+                        </ul>
+                         
                     </li>
                     
                     

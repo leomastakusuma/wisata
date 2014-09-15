@@ -27,10 +27,11 @@ class admin extends Controller {
      */
 
     public function index() {
-
         require 'application/templates/admin/header.html';
-        require 'application/templates/admin/content.html';
-        require 'application/templates/admin/footer.html';
+        require 'application/templates/admin/contentsfull.html';
+//        require 'application/templates/admin/header.html';
+//        require 'application/templates/admin/content.html';
+//        require 'application/templates/admin/footer.html';
     }
 
     public function all() {
