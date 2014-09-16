@@ -17,6 +17,7 @@ class admin extends Controller {
     private $modelreservasi     = 'reservasimodels';
     private $modelberita        = 'beritamodels';
     private $modeltransaksi     = 'ordermodels';
+    private $modeluser          = 'usermodels';
 
     public function __construct() {
         parent::__construct();
@@ -406,9 +407,36 @@ class admin extends Controller {
     }
     
     public function orderORD(){
-        $model  = $this->loadModel($this->modeltransaksi);
-        $getall = $model->getall();
-        print_r($getall);
+        $modeltransaksi  = $this->loadModel($this->modeltransaksi);
+        $getall = $modeltransaksi->getallORD();
+        require 'application/templates/admin/header.html';  
+        require 'application/views/admin/transaksi/dataorder.html';
+        require 'application/templates/admin/footer.html'; 
+    }
+    
+    public function orderSUCCESS(){
+        $modeltransaksi  = $this->loadModel($this->modeltransaksi);
+        $getall = $modeltransaksi->getallSUCCES();
+        require 'application/templates/admin/header.html';  
+        require 'application/views/admin/transaksi/dataordersucces.html';
+        require 'application/templates/admin/footer.html'; 
+    }
+
+        public function deleteORD($id_transaksi){
+        if(isset($id_transaksi)){
+            $modeltransaksi = $this->loadModel($this->modeltransaksi);
+            $modeltransaksi->deleteORD($id_transaksi);
+            $this->redirect('admin/orderORD');
+        }
+        
+    }
+    
+    public function payment($id_transaksi){
+        if(isset($id_transaksi)){
+            $modeltransaksi = $this->loadModel($this->modeltransaksi);
+            $modeltransaksi->updateORD($id_transaksi);
+            $this->redirect('admin/orderORD');
+        }
     }
     
 
