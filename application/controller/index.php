@@ -12,7 +12,7 @@ class Index extends Controller{
 
 
     public function index(){
-        $this->redirect('test')  ;
+        $this->redirect('home')  ;
         
         
         

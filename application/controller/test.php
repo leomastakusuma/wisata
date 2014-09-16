@@ -18,9 +18,11 @@ class test extends Controller{
       require_once 'application/templates/header.html';
       require_once 'application/templates/menu.html';
       $model        = $this->loadModel($this->model);
-      $get          = $model->getallberita();
-      echo'<pre>'; print_r($get);
-      require_once 'application/templates/content.php';
+      $getberita    = $model->getallberita();
+//      echo '<pre>';
+//      print_r($getberita);die;
+//      echo'<pre>'; print_r($get);
+      require_once 'application/views/home/berita.html';
       require_once 'application/templates/footer.php';  
         
         

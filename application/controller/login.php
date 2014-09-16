@@ -81,7 +81,7 @@ class login extends Controller {
                    $this->redirect('admin');
                   }
                   if($level == 'user'){
-                   $this->redirect('signup');
+                   $this->redirect('test');
                   }
                 }
                 else{
